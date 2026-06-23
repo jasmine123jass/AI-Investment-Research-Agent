@@ -1,91 +1,49 @@
 # AI Investment Research Agent
 
-An AI-powered investment research platform that generates professional company analysis reports using LangChain, LangGraph, and Large Language Models (LLMs).
-
 ## Overview
 
-AI Investment Research Agent helps users evaluate companies as investment opportunities by generating detailed analyst-style reports. The platform leverages AI to assess company fundamentals, business models, financial health, risks, competitive advantages, and investment potential.
+The AI Investment Research Agent is a web application that helps users evaluate companies as potential investment opportunities. Instead of manually researching financial reports, company information, and market trends, users can simply enter a company name and receive an AI-generated investment analysis report.
 
-## Features
+The application generates insights such as company overview, financial health, market position, risks, investment thesis, and final recommendations using Large Language Models (LLMs).
 
-* AI-Powered Company Analysis
-* Executive Summary Generation
-* Revenue & Growth Analysis
-* Financial Health Evaluation
-* SWOT Analysis
-* Risk Assessment
-* Market Position Analysis
-* Investment Recommendations
-* Confidence Scoring
-* Search History
-* Copy Report Functionality
-* Download Report Functionality
-* Responsive Modern UI
+---
 
-## Tech Stack
+## Live Demo
 
-### Frontend
+Vercel Deployment:
 
-* Next.js 16
-* React 19
-* TypeScript
-* Tailwind CSS
+https://ai-investment-research-agent-one.vercel.app
 
-### AI & Backend
+GitHub Repository:
 
-* LangChain
-* LangGraph
-* Groq LLM (Llama 3.3 70B)
-* Next.js API Routes
+https://github.com/jasmine123jass/AI-Investment-Research-Agent
 
-## Project Architecture
+---
 
-User Input
-↓
-Next.js Frontend
-↓
-API Route (/api/research)
-↓
-LangChain Agent
-↓
-Groq LLM
-↓
-Investment Analysis Report
-↓
-Interactive UI Display
+## How to Run the Project
 
-## Project Structure
-
-app/
-├── api/
-│ └── research/
-│ └── route.ts
-├── page.tsx
-
-components/
-├── ResearchResult.tsx
-
-lib/
-├── agent.ts
-
-public/
-
-## Installation
-
-Clone the repository:
+### Step 1: Clone the Repository
 
 ```bash
 git clone https://github.com/jasmine123jass/AI-Investment-Research-Agent.git
 cd AI-Investment-Research-Agent
 ```
 
-Install dependencies:
+### Step 2: Install Dependencies
 
 ```bash
 npm install
 ```
 
-Run the application:
+### Step 3: Configure Environment Variables
+
+Create a `.env.local` file in the root directory:
+
+```env
+GROQ_API_KEY=your_groq_api_key
+```
+
+### Step 4: Start the Application
 
 ```bash
 npm run dev
@@ -97,51 +55,194 @@ Open:
 http://localhost:3000
 ```
 
-## Environment Variables
+---
 
-Create a `.env.local` file:
+## How It Works
 
-```env
-GROQ_API_KEY=your_groq_api_key
+### Architecture
+
+```text
+User
+  ↓
+Next.js Frontend
+  ↓
+API Route (/api/research)
+  ↓
+LangChain Workflow
+  ↓
+Groq LLM (Llama 3.3 70B)
+  ↓
+Generated Investment Report
+  ↓
+Frontend Display
 ```
 
-## Usage
+### Workflow
 
-1. Enter a company name.
-2. Click **Analyze Company**.
-3. View the generated investment report.
-4. Copy or download the report.
+1. User enters a company name.
+2. Frontend sends the request to the API route.
+3. LangChain processes the request.
+4. Groq LLM generates a detailed investment analysis.
+5. The report is returned to the frontend.
+6. Users can view, copy, or download the report.
 
-## Example Companies
+---
 
-* Tesla
-* NVIDIA
-* Apple
-* Microsoft
-* Amazon
+## Tech Stack
 
-## Future Enhancements
+### Frontend
 
-* Real-Time Web Search Integration
-* Financial Data APIs
-* Stock Price Tracking
-* News Sentiment Analysis
-* Portfolio Dashboard
-* PDF Report Export
-* Multi-Agent Research Workflow
+* Next.js 16
+* React 19
+* TypeScript
+* Tailwind CSS
 
-## Learning Outcomes
+### AI Layer
 
-This project demonstrates:
+* LangChain
+* LangGraph
+* Groq LLM (Llama 3.3 70B)
 
-* Full Stack Development with Next.js
-* AI Application Development
-* LangChain Integration
-* LangGraph-Based Agent Design
-* LLM Prompt Engineering
-* API Development
-* TypeScript Development
-* Modern UI/UX Design
+### Backend
+
+* Next.js API Routes
+
+### Deployment
+
+* GitHub
+* Vercel
+
+---
+
+## Key Decisions & Trade-offs
+
+### Why Groq?
+
+I evaluated OpenAI, Claude, Gemini, and Groq before selecting Groq.
+
+Reasons:
+
+* Fast inference speed
+* Free developer access
+* Easy LangChain integration
+* Suitable for student projects and rapid development
+
+Trade-off:
+
+* GPT-4o may provide slightly stronger reasoning in some scenarios, but Groq offered the best balance between performance, cost, and accessibility.
+
+### Why Next.js?
+
+* Full-stack framework
+* API routes included
+* Easy deployment with Vercel
+
+### Why LangChain?
+
+* Simplifies LLM integration
+* Makes prompt management easier
+* Supports future tool integration
+
+### Why LangGraph?
+
+* Supports multi-agent workflows
+* Provides a scalable architecture for future development
+
+### What I Left Out
+
+Due to time constraints, the following features were not implemented:
+
+* Real-time financial APIs
+* Web search integration
+* News sentiment analysis
+* User authentication
+* Portfolio tracking dashboard
+
+---
+
+## Example Runs
+
+### Example 1: Apple
+
+Output Summary:
+
+* Strong financial performance
+* Diversified revenue streams
+* Strong brand loyalty
+* Recommended: BUY
+* Confidence Score: 85/100
+
+### Example 2: Tesla
+
+Output Summary:
+
+* Market leader in EV industry
+* Strong growth potential
+* Competitive risks identified
+* Recommended: WATCH
+* Confidence Score: 80/100
+
+### Example 3: NVIDIA
+
+Output Summary:
+
+* AI and GPU market leader
+* Exceptional growth trajectory
+* Strong competitive advantage
+* Recommended: INVEST
+* Confidence Score: 92/100
+
+Screenshots of these outputs are available in the `output` folder.
+
+---
+
+## What I Would Improve With More Time
+
+If given additional development time, I would:
+
+* Integrate Yahoo Finance and Alpha Vantage APIs
+* Add Tavily web search
+* Implement real-time news analysis
+* Add sentiment analysis capabilities
+* Create a portfolio management dashboard
+* Support PDF report exports
+* Implement user authentication
+* Build a complete multi-agent LangGraph workflow
+
+These improvements would make the application more accurate, data-driven, and production-ready.
+
+---
+
+## LLM Development Logs (Bonus Requirement)
+
+This project was developed with the assistance of AI throughout the design and implementation process.
+
+The `LLM-chat-logs` folder contains screenshots of development discussions covering:
+
+* System architecture planning
+* LLM selection decisions
+* Deployment strategy
+* LangChain integration
+* Future improvement planning
+
+These logs demonstrate the thought process, technical decisions, and AI-assisted development workflow used while building the project.
+
+---
+
+## Project Structure
+
+```text
+app/
+components/
+lib/
+LLM-chat-logs/
+output/
+public/
+README.md
+package.json
+```
+
+---
 
 ## Author
 
@@ -150,3 +251,6 @@ Srujitha Jasmine Baggam
 B.Tech Computer Science Engineering (AI & Machine Learning)
 
 Lovely Professional University
+
+GitHub:
+https://github.com/jasmine123jass
