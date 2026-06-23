@@ -1,85 +1,50 @@
-import Groq from "groq-sdk";
+import { ChatGroq } from "@langchain/groq";
+import { HumanMessage } from "@langchain/core/messages";
 
-const groq = new Groq({
+const model = new ChatGroq({
   apiKey: process.env.GROQ_API_KEY,
+  model: "llama-3.3-70b-versatile",
 });
 
 export async function runInvestmentAgent(
   companyName: string
 ) {
   try {
-    const completion =
-      await groq.chat.completions.create({
-        model: "llama-3.3-70b-versatile",
-        temperature: 0.3,
-        messages: [
-          {
-            role: "system",
-            content: `
-You are a Senior Investment Analyst working at Goldman Sachs.
+    const response = await model.invoke([
+      new HumanMessage(`
+You are a professional investment analyst.
 
-Generate professional investment research reports.
-
-Always provide:
+Analyze ${companyName} and provide:
 
 1. Executive Summary
 2. Company Overview
-3. Business Model
-4. Revenue & Growth Analysis
-5. Financial Health
-6. Competitive Advantages
-7. Market Position
-8. Industry Trends
-9. SWOT Analysis
-10. Key Risks
-11. Investment Thesis
-12. Final Recommendation
-
-For recommendation choose:
-- INVEST
-- WATCH
-- PASS
-
-Also provide:
-
-Confidence Score: XX/100
-
-Write in professional analyst report style.
-`,
-          },
-          {
-            role: "user",
-            content: `
-Analyze ${companyName} as an investment opportunity.
-
-Provide a detailed professional investment research report.
-`,
-          },
-        ],
-      });
+3. Revenue & Growth Analysis
+4. Financial Health
+5. SWOT Analysis
+6. Risks
+7. Investment Thesis
+8. Final Recommendation
+9. Confidence Score (0-100)
+      `),
+    ]);
 
     return {
       company: companyName,
-      rawAnalysis:
-        completion.choices[0].message.content,
+      rawAnalysis: response.content,
       structuredData: null,
       researchSteps: [
         "Company Analysis",
         "Financial Review",
-        "SWOT Analysis",
         "Risk Assessment",
         "Investment Recommendation",
       ],
-      totalSteps: 5,
+      totalSteps: 4,
     };
   } catch (error: any) {
-    console.error(error);
-
     return {
       company: companyName,
       rawAnalysis:
-        error.message ||
-        "Failed to generate report",
+        error.message || "Research failed",
       structuredData: null,
       researchSteps: [],
       totalSteps: 0,
